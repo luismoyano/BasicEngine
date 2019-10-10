@@ -40,6 +40,7 @@ bool ModuleTextures::Init()
 
 bool ModuleTextures::Start()
 {
+
 	return true;
 }
 
