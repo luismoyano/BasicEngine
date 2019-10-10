@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "SDL/include/SDL.h"
 
 typedef unsigned __int8 Uint8;
 
@@ -20,4 +21,5 @@ public:
 
 private:
 	const Uint8 *keyboard = NULL;
+	SDL_Event events;
 };
