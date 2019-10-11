@@ -37,6 +37,7 @@
     <ClInclude Include="ModuleScene.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleAudio.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -62,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="ModuleScene.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleAudio.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
