@@ -29,11 +29,11 @@ bool ModuleAudio::Init()
 
 bool ModuleAudio::Start()
 {
-	AudioClip* clip = new AudioClip("..\\Game\\hiighlands.wav", true, 120);
+	AudioClip* clip = new AudioClip("..\\Game\\highlands.wav", true, 120);
 	clips.push_back(clip);
 
 	clip->play();
 
-	Sleep(1);
+	Sleep(1000);
 	return true;
 }

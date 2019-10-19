@@ -23,7 +23,7 @@ void AudioClip::Init(const char * path, bool loop, Uint8 vol)
 	this->path = path;
 	this->isLoopable = loop;
 
-	clip = new Mix_Chunk();
+	clip = Mix_LoadWAV(path);
 	clip->volume = vol;
 }
 
