@@ -1,5 +1,6 @@
 #pragma once
 #include "SDL/include/SDL.h"
+#include "SDL_mixer/include/SDL_mixer.h"
 
 using namespace std;
 
@@ -7,16 +8,19 @@ class AudioClip
 {
 public:
 	AudioClip();
+	AudioClip(const char* path, bool loop, Uint8 volume);
 	~AudioClip();
 
-	Uint32 length;
-	Uint32 lengthTrue;
-	Uint8* bufferTrue;
-	Uint8* buffer;
-	bool isLoopable;
-	bool shouldFree;
-	Uint8 volume;
+	void Init(const char* path, bool loop, Uint8 vol);
+	void setPath(const char* path);
 
-	SDL_AudioSpec audio;
+	void play();
+
+private:
+
+	const char* path;
+	bool isLoopable;
+
+	Mix_Chunk* clip;
 };
 
