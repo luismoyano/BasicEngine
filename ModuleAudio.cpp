@@ -17,7 +17,7 @@ ModuleAudio::ModuleAudio()
 
 ModuleAudio::~ModuleAudio()
 {
-	for (list<AudioClip>::iterator it = clips.begin(); it != clips.end(); ++it) delete &it;
+	for (list<AudioClip*>::iterator it = clips.begin(); it != clips.end(); ++it) delete &it;
 	SDL_CloseAudio();
 
 	stopAll();
@@ -45,8 +45,8 @@ bool ModuleAudio::Init()
 	global = (AudioClip*)device->wavSpec.userdata;
 	global->buffer = NULL;
 
-
-	if (device->device = SDL_OpenAudioDevice(NULL, 0, &device->wavSpec, NULL, SDL_AUDIO_ALLOW_CHANGES) == 0)
+	device->device = SDL_OpenAudioDevice(NULL, 0, &device->wavSpec, NULL, SDL_AUDIO_ALLOW_CHANGES);
+	if (device->device == 0)
 	{
 		toBeReturned = false;
 	}
@@ -61,6 +61,7 @@ bool ModuleAudio::Init()
 
 bool ModuleAudio::Start()
 {
+	playAudio(NULL, createAudioClip("..\\Game\\danzon.wav", true, 1), true, 1);
 	return true;
 }
 
@@ -113,7 +114,7 @@ void ModuleAudio::freeAudio(AudioClip* audio)
 
 AudioClip* ModuleAudio::createAudioClip(const char * filename, bool isLoopable, int volume)
 {
-	AudioClip* newClip = new AudioClip();
+	AudioClip* newClip = (AudioClip*)device->wavSpec.userdata;
 
 	newClip->isLoopable = isLoopable;
 	newClip->shouldFree = true;
@@ -121,21 +122,22 @@ AudioClip* ModuleAudio::createAudioClip(const char * filename, bool isLoopable, 
 
 	if (SDL_LoadWAV(filename, &(newClip->audio), &(newClip->bufferTrue), &(newClip->lengthTrue)) == NULL)
 	{
+		const char* stuff = SDL_GetError();
 		delete newClip;
 		return NULL;
 	}
 
 	newClip->buffer = newClip->bufferTrue;
 	newClip->length = newClip->lengthTrue;
-	newClip->audio.callback = NULL;
-	newClip->audio.userdata = NULL;
+	newClip->audio.callback = audioCallback;
+	newClip->audio.userdata = newClip;
 
 	return newClip;
 }
 
 void ModuleAudio::playAudio(const char* path, AudioClip* audio, bool isLoopable, int volume)
 {
-	AudioClip* newClip;
+	AudioClip* newClip = nullptr;
 
 	if (!device->isAudioEnabled) return;
 
@@ -147,7 +149,7 @@ void ModuleAudio::playAudio(const char* path, AudioClip* audio, bool isLoopable,
 
 	if (path != NULL) newClip = createAudioClip(path, isLoopable, volume);
 	
-	else if (audio != NULL)
+	else if (audio == nullptr)
 	{
 		newClip = new AudioClip();
 
@@ -159,7 +161,7 @@ void ModuleAudio::playAudio(const char* path, AudioClip* audio, bool isLoopable,
 	/* Lock callback function */
 	SDL_LockAudioDevice(device->device);
 	
-	clips.push_back(*newClip);
+	clips.push_back(newClip == nullptr? audio : newClip);
 
 	SDL_UnlockAudioDevice(device->device);
 
@@ -185,7 +187,7 @@ static inline void audioCallback(void * userdata, uint8_t * stream, int len)
 				tempLength = ((uint32_t)len > clip->length) ? clip->length : (uint32_t)len;
 			}
 
-			SDL_MixAudioFormat(stream, clip->buffer, CLIP_FORMAT, tempLength, clip->volume);
+			SDL_MixAudioFormat(stream, clip->buffer, CLIP_FORMAT, tempLength, 100);
 
 			clip->buffer += tempLength;
 			clip->length -= tempLength;

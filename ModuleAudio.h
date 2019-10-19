@@ -34,5 +34,5 @@ private:
 	bool isLoaded;
 	AudioDevice* device;
 	Uint32 amountOfSounds;
-	list<AudioClip> clips;
+	list<AudioClip*> clips;
 };
