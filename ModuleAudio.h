@@ -3,11 +3,16 @@
 #include "AudioClip.h"
 #include<list>
 
-
 using namespace std;
 
-class ModuleAudio :
-	public Module
+struct AudioDevice
+{
+	SDL_AudioDeviceID device;
+	SDL_AudioSpec wavSpec;
+	bool isAudioEnabled;
+};
+
+class ModuleAudio : public Module
 {
 public:
 	ModuleAudio();
@@ -16,10 +21,18 @@ public:
 	bool Init();
 	bool Start();
 
-	bool LoadAudio(const char* path, bool isLoopable);
-	void playAudio(float volume);
-
+	AudioClip* createAudioClip(const char * filename, bool isLoopable, int volume);
+	void playAudio(const char* path, AudioClip* audio, bool isLoopable, int volume);
+	void freeAudio(AudioClip* audio);
+	void playSound(const char* path, int volume);
+	void playMusic(const char* path, int volume);
+	void stopAll(void);
+	void pauseAudio(void);
+	void unpauseAudio(void);
 private:
 
-	list<AudioClip*> clips;
+	bool isLoaded;
+	AudioDevice* device;
+	Uint32 amountOfSounds;
+	list<AudioClip> clips;
 };

@@ -22,5 +22,9 @@ enum update_status
 #define FULLSCREEN_DESKTOP false
 #define VSYNC true
 #define TITLE "Super Awesome Game"
-#define SPRITE_FILE "sprites.png"
-#define AUDIO_FILE "..\\Game\\danzon.wav"
+#define CLIP_FORMAT AUDIO_S16LSB
+#define CLIP_FREQUENCY 48000
+#define CHANNELS 2
+#define SAMPLES 4096
+#define MAX_SOUNDS 10
+#define SDL_AUDIO_ALLOW_CHANGES SDL_AUDIO_ALLOW_ANY_CHANGE

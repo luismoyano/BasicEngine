@@ -124,7 +124,7 @@ extern DECLSPEC void SDLCALL SDL_UnionRect(const SDL_Rect * A,
  */
 extern DECLSPEC SDL_bool SDLCALL SDL_EnclosePoints(const SDL_Point * points,
                                                    int count,
-                                                   const SDL_Rect * clip,
+                                                   const SDL_Rect * AudioClip,
                                                    SDL_Rect * result);
 
 /**
