@@ -23,3 +23,4 @@ enum update_status
 #define VSYNC true
 #define TITLE "Super Awesome Game"
 #define SPRITE_FILE "sprites.png"
+#define AUDIO_FILE "..\\Game\\danzon.wav"

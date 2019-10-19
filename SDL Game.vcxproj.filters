@@ -11,6 +11,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{ad89cf24-f35e-4d0c-90e5-820c054c274d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{e3ed3bb7-7ea9-4ffa-9c16-41a3dce52d57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleInput.h">
@@ -37,7 +40,12 @@
     <ClInclude Include="ModuleScene.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleAudio.h" />
+    <ClInclude Include="ModuleAudio.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioClip.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -65,7 +73,10 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleAudio.cpp">
-      <Filter>Main</Filter>
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioClip.cpp">
+      <Filter>Audio</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
