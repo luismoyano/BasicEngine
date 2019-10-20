@@ -34,6 +34,6 @@ bool ModuleAudio::Start()
 
 	clip->play();
 
-	Sleep(1000);
+	//Sleep(1);
 	return true;
 }
